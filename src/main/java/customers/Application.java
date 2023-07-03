@@ -1,5 +1,8 @@
 package customers;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 public class Application {
 
 	public static void main(String[] args) {
@@ -16,8 +19,14 @@ public class Application {
 		customerCollection.add(new Customer("Frank","Cohen","fcohen@gmail.com","0643232178",53, new Address("Jeffersen Av 3","New York","54221")));
 		customerCollection.add(new Customer("Eric","Johnson","ejohnson@hotmail.com","0612342345",36, new Address("1000 S 4th street","San Fransisco","12544")));
 		
-		customerCollection.print();
+		printCustomers(customerCollection);
 
+	}
+
+	private static void printCustomers(CustomerCollection collection){
+		Iterator<Customer> ageIterator = collection.ageIterator();
+		while (ageIterator.hasNext())
+			System.out.println(ageIterator.next());
 	}
 
 }

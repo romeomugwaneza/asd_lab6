@@ -1,6 +1,6 @@
 package customers;
 
-public class Customer {
+public class Customer implements AgeComparable {
 	private String firstName;
 	private String lastName;
 	private String email;
