@@ -2,6 +2,7 @@ package customers;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 public class Application {
 
@@ -19,14 +20,45 @@ public class Application {
 		customerCollection.add(new Customer("Frank","Cohen","fcohen@gmail.com","0643232178",53, new Address("Jeffersen Av 3","New York","54221")));
 		customerCollection.add(new Customer("Eric","Johnson","ejohnson@hotmail.com","0612342345",36, new Address("1000 S 4th street","San Fransisco","12544")));
 		
-		printCustomers(customerCollection);
+		//printCustomersSortedByAge(customerCollection);
+		//printCustomersFromChicago(customerCollection);
+		//printCustomersFromZipStartsWith12(customerCollection);
+		printEveryOtherCustomer(customerCollection);
 
 	}
 
-	private static void printCustomers(CustomerCollection collection){
+	private static void printCustomersSortedByAge(CustomerCollection collection){
+		System.out.println("\n:: Age Iterator - From youngest to oldest\n");
 		Iterator<Customer> ageIterator = collection.ageIterator();
 		while (ageIterator.hasNext())
 			System.out.println(ageIterator.next());
+		System.out.println("\n\n");
+	}
+
+	private static void printCustomersFromChicago(CustomerCollection collection){
+		System.out.println("\n:: Customers From Chicago=======================\n");
+		Predicate<Customer> customersFromChicago = customer -> customer.getAddress().getCity().equals("Chicago");
+		Iterator<Customer> filterIterator = collection.filterIterator(customersFromChicago);
+		while (filterIterator.hasNext())
+			System.out.println(filterIterator.next());
+		System.out.println("\n\n");
+
+	}
+	private static void printCustomersFromZipStartsWith12(CustomerCollection collection){
+		System.out.println("\n:: Customers Zip Starts with 12\n");
+		Predicate<Customer> customersInZip = customer -> customer.getAddress().getZip().startsWith("12");
+		Iterator<Customer> filterIterator = collection.filterIterator(customersInZip);
+		while (filterIterator.hasNext())
+			System.out.println(filterIterator.next());
+		System.out.println("\n\n");
+	}
+
+	private static void printEveryOtherCustomer(CustomerCollection collection){
+		System.out.println("\n:: Skip next Customer\n");
+		Iterator<Customer> skipIterator = collection.skipIterator();
+		while (skipIterator.hasNext())
+			System.out.println(skipIterator.next());
+		System.out.println("\n\n");
 	}
 
 }
